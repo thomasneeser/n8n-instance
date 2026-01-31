@@ -26,6 +26,32 @@ ask SUBDOMAIN "🔗 Subdomain (z. B. n8n):"
 ask SSL_EMAIL "📧 E-Mail für Let's Encrypt:"
 
 ### =========================
+### System aktualisieren & Docker installieren
+### =========================
+echo "📦 Aktualisiere System und installiere Docker"
+
+export DEBIAN_FRONTEND=noninteractive
+
+sudo apt-get update
+sudo apt-get -y upgrade
+
+# Prereqs
+sudo apt-get install -y ca-certificates curl nano
+
+# Docker GPG-Key und Repo
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo \"${UBUNTU_CODENAME:-$VERSION_CODENAME}\") stable" \
+  | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+### =========================
 ### Vorbereitung
 ### =========================
 COMPOSE_DIR="$HOME/n8n-compose"
@@ -65,7 +91,7 @@ services:
       - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.mytlschallenge.acme.tlschallenge=true"
-      - "--certificatesresolvers.mytlschallenge.acme.email=\${SSL_EMAIL}"
+      - "--certificatesresolvers.mytlschallenge.acme.email=\\\${SSL_EMAIL}"
       - "--certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
@@ -81,15 +107,15 @@ services:
       - "5678:5678"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.n8n.rule=Host("\${SUBDOMAIN}.\${DOMAIN_NAME}")
+      - traefik.http.routers.n8n.rule=Host("\\\${SUBDOMAIN}.\\\${DOMAIN_NAME}")
       - traefik.http.routers.n8n.entrypoints=websecure
       - traefik.http.routers.n8n.tls=true
       - traefik.http.routers.n8n.tls.certresolver=mytlschallenge
     environment:
-      - N8N_HOST=\${SUBDOMAIN}.\${DOMAIN_NAME}
+      - N8N_HOST=\\\${SUBDOMAIN}.\\\${DOMAIN_NAME}
       - N8N_PROTOCOL=https
-      - WEBHOOK_URL=https://\${SUBDOMAIN}.\${DOMAIN_NAME}/
-      - GENERIC_TIMEZONE=\${GENERIC_TIMEZONE}
+      - WEBHOOK_URL=https://\\\${SUBDOMAIN}.\\\${DOMAIN_NAME}/
+      - GENERIC_TIMEZONE=\\\${GENERIC_TIMEZONE}
     volumes:
       - n8n_data:/home/node/.n8n
 
