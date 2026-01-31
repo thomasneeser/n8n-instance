@@ -13,7 +13,10 @@ Create your own docker-based n8n-instance.
 - create your domain for your n8n-server and type your ip-adress into the a-record of your domain service - I'm using a free subdomain service https://desec.io/
 - now go to your vm instance on google cloud services, open SSL-Panel and type:
 <code>
-curl -s https://raw.githubusercontent.com/thomasneeser/n8n-instance/main/setup-n8n.sh | bash
+cd /root
+curl -L https://raw.githubusercontent.com/thomasneeser/n8n-instance/main/setup-n8n.sh -o setup-n8n.sh
+chmod +x setup-n8n.sh
+./setup-n8n.sh
 </code>
 - follow instructions on the screen
 - after finishing process open your domain and enjoy your n8n-instance! :-)
