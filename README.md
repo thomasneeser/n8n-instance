@@ -28,5 +28,5 @@ chmod +x setup-n8n.sh
 ```bash
 sudo docker compose down
 sudo rm -rf ./letsencrypt/acme.json
-sudo docker compose up -d
+sudo docker compose up -d --force-recreate
 ```
