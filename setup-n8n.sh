@@ -104,7 +104,7 @@ services:
     image: docker.n8n.io/n8nio/n8n
     restart: always
     ports:
-      - "5678:5678"
+      - "127.0.0.1:5678:5678"
     labels:
       - traefik.enable=true
       - traefik.http.routers.n8n.rule=Host("\\\${SUBDOMAIN}.\\\${DOMAIN_NAME}")
@@ -133,7 +133,7 @@ sudo rm -rf ./letsencrypt/acme.json
 ### Docker starten
 ### =========================
 echo "🚀 Starte Docker Container"
-sudo docker compose up -d
+sudo docker compose up -d --force-recreate
 
 ### =========================
 ### systemd Autostart-Service
