@@ -21,3 +21,11 @@ chmod +x setup-n8n.sh
 - follow instructions on the screen
 - after finishing process open your domain and enjoy your n8n-instance! :-)
 
+## Troubleshooting
+
+- If your n8n-URL isloading with a ssl error, run this commands, wait about 5 minutes and load URL again:
+```bash
+sudo docker compose down
+sudo rm -rf ./letsencrypt/acme.json
+sudo docker compose up -d
+```
