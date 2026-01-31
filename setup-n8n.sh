@@ -125,6 +125,11 @@ volumes:
 EOF
 
 ### =========================
+### SSL renew
+### =========================
+sudo rm -rf ./letsencrypt/acme.json
+
+### =========================
 ### Docker starten
 ### =========================
 echo "🚀 Starte Docker Container"
