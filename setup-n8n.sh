@@ -54,6 +54,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 ### =========================
 ### Vorbereitung
 ### =========================
+GENERIC_TIMEZONE="Europe/Berlin"
 COMPOSE_DIR="$HOME/n8n-compose"
 
 echo "📁 Erstelle Verzeichnis: $COMPOSE_DIR"
