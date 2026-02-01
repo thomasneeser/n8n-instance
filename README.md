@@ -1,10 +1,9 @@
 # n8n-instance
-Create your own Docker-based n8n-instance.
+Create your own Docker-based n8n-instance for free.
 
 ## Requirements
 
-- A Linux server running Ubuntu - I'm using the Google Cloud free tier
-- Administrator rights on the server
+- A Linux server running Ubuntu - for tests I'm using the Google Cloud free tier (e2-micro with 2 vCPUs, 1 GB RAM)
 - Your own domain with ssl-certificate and the ability to configure the domains A record - I'm using the free subdomain service https://desec.io/
 
 ## Installation
