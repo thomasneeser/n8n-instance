@@ -78,7 +78,7 @@ EOF
 ### =========================
 echo "📦 Erstelle docker-compose.yml"
 
-cat > docker-compose.yml <<EOF
+cat <<'EOF' > docker-compose.yml
 services:
   traefik:
     image: traefik
@@ -109,7 +109,7 @@ services:
       - "127.0.0.1:5678:5678"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.n8n.rule=Host('${SUBDOMAIN}.${DOMAIN_NAME}')
+      - traefik.http.routers.n8n.rule=Host(`${SUBDOMAIN}.${DOMAIN_NAME}`)
       - traefik.http.routers.n8n.tls=true
       - traefik.http.routers.n8n.entrypoints=web,websecure
       - traefik.http.routers.n8n.tls.certresolver=mytlschallenge
