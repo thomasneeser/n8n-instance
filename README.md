@@ -26,8 +26,7 @@ Create your own Docker-based n8n-instance for free.
 ### Third and last step: Install your n8n-instance 
 - Now go to your vm instance on google cloud services, open the SSH terminal and run:
 ```bash
-cd /root
-curl -L https://raw.githubusercontent.com/thomasneeser/n8n-instance/main/setup-n8n.sh | bash
+(cd /root && curl -L https://raw.githubusercontent.com/thomasneeser/n8n-instance/main/setup-n8n.sh | bash)
 ```
 - Follow the on-screen instrucitons.
 - After finishing the process open your domain and enjoy your n8n-instance! :-)
