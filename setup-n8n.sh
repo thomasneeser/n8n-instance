@@ -101,7 +101,9 @@ services:
     volumes:
       - traefik_data:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
-
+    networks:
+      - n8n-net
+      
   n8n:
     image: docker.n8n.io/n8nio/n8n
     restart: always
@@ -132,7 +134,12 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
       - ./local-files:/files
+    networks:
+      - n8n-net
 
+networks:
+  n8n-net:
+  
 volumes:
   n8n_data:
   traefik_data:
